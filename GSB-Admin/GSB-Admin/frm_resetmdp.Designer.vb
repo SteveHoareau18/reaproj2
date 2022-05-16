@@ -27,6 +27,7 @@ Partial Class frm_resetmdp
         Me.input_reinit = New System.Windows.Forms.TextBox()
         Me.lbl_title = New System.Windows.Forms.Label()
         Me.lbl_user = New System.Windows.Forms.Label()
+        Me.btn_retour = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btn_reinit
@@ -79,11 +80,22 @@ Partial Class frm_resetmdp
         Me.lbl_user.TabIndex = 31
         Me.lbl_user.Text = "Utilisateur:"
         '
+        'btn_retour
+        '
+        Me.btn_retour.Location = New System.Drawing.Point(211, 198)
+        Me.btn_retour.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_retour.Name = "btn_retour"
+        Me.btn_retour.Size = New System.Drawing.Size(132, 28)
+        Me.btn_retour.TabIndex = 32
+        Me.btn_retour.Text = "Retour"
+        Me.btn_retour.UseVisualStyleBackColor = True
+        '
         'frm_resetmdp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(568, 253)
+        Me.Controls.Add(Me.btn_retour)
         Me.Controls.Add(Me.lbl_user)
         Me.Controls.Add(Me.lbl_title)
         Me.Controls.Add(Me.btn_reinit)
@@ -100,4 +112,5 @@ Partial Class frm_resetmdp
     Friend WithEvents input_reinit As System.Windows.Forms.TextBox
     Friend WithEvents lbl_title As System.Windows.Forms.Label
     Friend WithEvents lbl_user As System.Windows.Forms.Label
+    Friend WithEvents btn_retour As System.Windows.Forms.Button
 End Class

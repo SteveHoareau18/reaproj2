@@ -26,6 +26,7 @@ Partial Class frm_main
         Me.btn_createuser = New System.Windows.Forms.Button()
         Me.lbl_listeusers = New System.Windows.Forms.Label()
         Me.btn_resetmdp = New System.Windows.Forms.Button()
+        Me.btn_reloadlst = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'lbox_users
@@ -69,11 +70,22 @@ Partial Class frm_main
         Me.btn_resetmdp.Text = "Réinitialisation du mot de passe"
         Me.btn_resetmdp.UseVisualStyleBackColor = True
         '
+        'btn_reloadlst
+        '
+        Me.btn_reloadlst.Location = New System.Drawing.Point(183, 155)
+        Me.btn_reloadlst.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_reloadlst.Name = "btn_reloadlst"
+        Me.btn_reloadlst.Size = New System.Drawing.Size(46, 28)
+        Me.btn_reloadlst.TabIndex = 28
+        Me.btn_reloadlst.Text = "🔄"
+        Me.btn_reloadlst.UseVisualStyleBackColor = True
+        '
         'frm_main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(540, 246)
+        Me.Controls.Add(Me.btn_reloadlst)
         Me.Controls.Add(Me.btn_resetmdp)
         Me.Controls.Add(Me.lbl_listeusers)
         Me.Controls.Add(Me.btn_createuser)
@@ -89,5 +101,6 @@ Partial Class frm_main
     Friend WithEvents btn_createuser As System.Windows.Forms.Button
     Friend WithEvents lbl_listeusers As System.Windows.Forms.Label
     Friend WithEvents btn_resetmdp As System.Windows.Forms.Button
+    Friend WithEvents btn_reloadlst As System.Windows.Forms.Button
 
 End Class

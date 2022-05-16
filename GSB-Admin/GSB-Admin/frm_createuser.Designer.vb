@@ -40,6 +40,7 @@ Partial Class frm_createuser
         Me.input_prenom = New System.Windows.Forms.TextBox()
         Me.input_nom = New System.Windows.Forms.TextBox()
         Me.lbl_title = New System.Windows.Forms.Label()
+        Me.btn_retour = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'rdbtn_comptable
@@ -221,11 +222,21 @@ Partial Class frm_createuser
         Me.lbl_title.TabIndex = 40
         Me.lbl_title.Text = "Créer un nouvel utilisateur"
         '
+        'btn_retour
+        '
+        Me.btn_retour.Location = New System.Drawing.Point(581, 316)
+        Me.btn_retour.Name = "btn_retour"
+        Me.btn_retour.Size = New System.Drawing.Size(75, 23)
+        Me.btn_retour.TabIndex = 41
+        Me.btn_retour.Text = "Retour"
+        Me.btn_retour.UseVisualStyleBackColor = True
+        '
         'frm_createuser
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(740, 466)
+        Me.Controls.Add(Me.btn_retour)
         Me.Controls.Add(Me.lbl_title)
         Me.Controls.Add(Me.rdbtn_comptable)
         Me.Controls.Add(Me.rdbtn_visiteur)
@@ -268,4 +279,5 @@ Partial Class frm_createuser
     Friend WithEvents input_prenom As System.Windows.Forms.TextBox
     Friend WithEvents input_nom As System.Windows.Forms.TextBox
     Friend WithEvents lbl_title As System.Windows.Forms.Label
+    Friend WithEvents btn_retour As System.Windows.Forms.Button
 End Class

@@ -36,4 +36,9 @@ Public Class frm_resetmdp
             lbox_users.Items.Add(ex.Message)
         End Try
     End Sub
+
+    Private Sub btn_retour_Click(sender As Object, e As EventArgs) Handles btn_retour.Click
+        frm_main.Show()
+        Me.Close()
+    End Sub
 End Class

@@ -44,23 +44,86 @@ Public Class frm_createuser
         If input_dateEmbauche.Text = "" Or input_dateEmbauche.Text.StartsWith(" ") Then
             uneErreur = True
         End If
-        MsgBox(input_dateEmbauche.Value.Year & "-" & input_dateEmbauche.Value.Month & "-" & input_dateEmbauche.Value.Day)
         If uneErreur Then
             MsgBox("Prière de bien vouloir vérifier si tous les champs sont saisis...", vbOKOnly, "Une erreur est survenue")
         Else
             'Créer un utilisateur
             Dim lbox_users = frm_main.lbox_users
             Dim conn = frm_connexion.conn
-            Dim sqlQuery As String = "INSERT INTO utilisateur VALUES ('" & input_prenom.Text.Substring(0) & input_nom.Text & "','" & input_nom.Text & "','" & input_prenom.Text & "','" & input_prenom.Text.Substring(0) & input_nom.Text & "',SHA1('" & input_mdp.Text & "'),'" & input_adr.Text & "','" & input_cp.Text & "','" & input_cp.Text & "','" & (input_dateEmbauche.Value.Year & "-" & input_dateEmbauche.Value.Month & "-" & input_dateEmbauche.Value.Day) & "');"
+            Dim sqlQuery As String = "INSERT INTO utilisateur VALUES ('" & input_prenom.Text.Substring(0, 1) & input_nom.Text.Substring(0, 3) & "','" & input_nom.Text & "','" & input_prenom.Text & "','" & input_prenom.Text.Substring(0) & input_nom.Text & "',SHA1('" & input_mdp.Text & "'),'" & input_adr.Text & "','" & input_cp.Text & "','" & input_cp.Text & "','" & (input_dateEmbauche.Value.Year & "-" & input_dateEmbauche.Value.Month & "-" & input_dateEmbauche.Value.Day) & "');"
 
             Try
-                Dim cmd As New MySqlCommand(sqlQuery, conn)
                 conn.Open()
                 Dim cmdSQL As New MySqlCommand()
                 cmdSQL.Connection = conn
                 cmdSQL.CommandText = sqlQuery
                 Try
                     cmdSQL.ExecuteNonQuery()
+                    conn.Close()
+                    Try
+                        conn = frm_connexion.conn
+                        sqlQuery = "SELECT id FROM utilisateur WHERE nom='" & input_nom.Text & "' AND prenom='" & input_prenom.Text & "';"
+                        conn.Open()
+                        cmdSQL = New MySqlCommand()
+                        cmdSQL.Connection = conn
+                        cmdSQL.CommandText = sqlQuery
+                        Dim reader As MySqlDataReader
+                        reader = cmdSQL.ExecuteReader()
+
+                        While reader.Read()
+                            'Les champs à recup. Les tables commencent à 0.
+                            Dim id = reader.GetString(0)
+                            If Not id = "" Then
+                                conn.Close()
+                                If rdbtn_comptable.Checked Then
+                                    Try
+                                        conn = frm_connexion.conn
+                                        sqlQuery = "INSERT INTO `comptable`(`idUtilisateur`, `nbFicheRefusee`) VALUES ('" & id & "',0)"
+                                        conn.Open()
+                                        cmdSQL = New MySqlCommand()
+                                        cmdSQL.Connection = conn
+                                        cmdSQL.CommandText = sqlQuery
+                                        Try
+                                            cmdSQL.ExecuteNonQuery()
+                                            Me.Close()
+                                            frm_main.Show()
+                                            Exit While
+                                        Catch ex As Exception
+                                            MsgBox("ERREUR : Ajout impossible." + Chr(13) + ex.Message, vbCritical)
+                                        End Try
+                                        conn.Close()
+                                    Catch ex As Exception
+                                        MsgBox("ERREUR : Ajout impossible." + Chr(13) + ex.Message, vbCritical)
+                                    End Try
+                                Else
+                                    Try
+                                        conn = frm_connexion.conn
+                                        sqlQuery = "INSERT INTO `visiteur`(`idUtilisateur`) VALUES ('" & id & "')"
+                                        conn.Open()
+                                        cmdSQL = New MySqlCommand()
+                                        cmdSQL.Connection = conn
+                                        cmdSQL.CommandText = sqlQuery
+                                        Try
+                                            cmdSQL.ExecuteNonQuery()
+                                            Me.Close()
+                                            frm_main.Show()
+                                            Exit While
+                                        Catch ex As Exception
+                                            MsgBox("ERREUR : Ajout impossible." + Chr(13) + ex.Message, vbCritical)
+                                        End Try
+                                        conn.Close()
+                                    Catch ex As Exception
+                                        MsgBox("ERREUR : Ajout impossible." + Chr(13) + ex.Message, vbCritical)
+                                    End Try
+                                End If
+                            End If
+                        End While
+
+                        reader.Close()
+                        conn.Close()
+                    Catch ex As Exception
+                        MsgBox("ERREUR : Ajout impossible." + Chr(13) + ex.Message, vbCritical)
+                    End Try
                     Me.Close()
                     frm_main.Show()
                 Catch ex As Exception
@@ -68,9 +131,14 @@ Public Class frm_createuser
                 End Try
                 conn.Close()
             Catch ex As Exception
-                lbox_users.Items.Add(ex.Message)
+                MsgBox("ERREUR : Ajout impossible." + Chr(13) + ex.Message, vbCritical)
             End Try
         End If
 
+    End Sub
+
+    Private Sub btn_retour_Click(sender As Object, e As EventArgs) Handles btn_retour.Click
+        frm_main.Show()
+        Me.Close()
     End Sub
 End Class
